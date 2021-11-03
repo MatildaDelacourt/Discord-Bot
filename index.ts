@@ -1,8 +1,6 @@
 const DiscordJS = require('discord.js');
-//const Intents = DiscordJS.intents;
 const { Intents } = require('discord.js');
 const dotenv = require('dotenv');
-//import dotenv from 'dotenv';
 dotenv.config();
 
 const client = new DiscordJS.Client({
