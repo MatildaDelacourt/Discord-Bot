@@ -27,6 +27,7 @@ client.on('messageCreate', (message: any) => {
       ${output}
     \`\`\`
     `);
+  message.react('🚔').then(console.log).catch(console.error);
 });
 
 client.login(process.env.TOKEN);
