@@ -7,6 +7,17 @@ const cowsay = require('cowsay');
 
 let output: string = cowsay.say({ text: 'Hello from typescript!' });
 
+//import { C3PO }
+const IOptions = require('cowsay');
+let opts: typeof IOptions = {
+  text: 'Hello from TypeScript!',
+  e: '^^',
+  r: false,
+  f: 'ghostbusters',
+};
+
+let newCOW: string = cowsay.say(opts);
+
 const client = new DiscordJS.Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
@@ -29,7 +40,7 @@ client.on('messageCreate', (message: any) => {
       .reply(
         `
     \`\`\`
-      ${output}
+      ${newCOW}
     \`\`\`
     `
       )
