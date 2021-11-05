@@ -17,17 +17,26 @@ client.on('ready', () => {
 
 client.on('messageCreate', (message: any) => {
   if (message.content === 'ping')
-    message.reply({
-      content: 'pong',
-    });
+    message
+      .reply({
+        content: 'pong',
+      })
+      .then(() => console.log(`Replied to message "${message.content}"`))
+      .catch(console.error);
 
   if (message.content === 'cowsay')
-    message.reply(`
+    message
+      .reply(
+        `
     \`\`\`
       ${output}
     \`\`\`
-    `);
+    `
+      )
+      .then(() => console.log(`Replied to message "${message.content}"`))
+      .catch(console.error);
+
+  // React to a message
   message.react('🚔').then(console.log).catch(console.error);
 });
-
 client.login(process.env.TOKEN);
