@@ -12,12 +12,12 @@ const IOptions = require('cowsay');
 let opts: typeof IOptions = {
   text: 'Hello from TypeScript!',
   e: '^^',
-  r: false,
-  f: 'mona-lisa',
+  r: true,
+  f: '',
 };
 
 let newCOW: string = cowsay.say(opts);
-
+console.log(newCOW);
 const client = new DiscordJS.Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
