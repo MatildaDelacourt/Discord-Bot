@@ -13,7 +13,7 @@ let opts: typeof IOptions = {
   text: 'Hello from TypeScript!',
   e: '^^',
   r: false,
-  f: 'ghostbusters',
+  f: 'mona-lisa',
 };
 
 let newCOW: string = cowsay.say(opts);
@@ -44,8 +44,14 @@ client.on('messageCreate', (message: any) => {
     \`\`\`
     `
       )
-      .then(() => console.log(`Replied to message "${message.content}"`))
-      .catch(console.error);
+      .then(function (response: any) {
+        console.log(`Replied to message "${message.content}"`);
+      })
+      .catch(function (response: any) {
+        if (response['httpStatus'] == 400) {
+          message.reply('ERROR: image is too big');
+        }
+      });
 
   // React to a message
   message.react('🚔').then(console.log).catch(console.error);
