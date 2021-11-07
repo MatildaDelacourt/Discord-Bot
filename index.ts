@@ -2,6 +2,8 @@
 import cowsay from './utils/cowsay';
 const { Intents } = require('discord.js');
 const DiscordJS = require('discord.js');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // creates client
 const client = new DiscordJS.Client({
