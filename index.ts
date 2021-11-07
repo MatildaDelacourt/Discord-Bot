@@ -1,49 +1,26 @@
-const DiscordJS = require('discord.js');
+// importing separate cowsay functionalitys and discord files
+import cowsay from './utils/cowsay';
 const { Intents } = require('discord.js');
-const dotenv = require('dotenv');
-dotenv.config();
+const DiscordJS = require('discord.js');
 
-const cowsay = require('cowsay');
-
-let output: string = cowsay.say({ text: 'Hello from typescript!' });
-
-//import { C3PO }
-const IOptions = require('cowsay');
-let opts: typeof IOptions = {
-  text: 'Hello from TypeScript!',
-  e: '^^',
-  r: true,
-  f: '',
-};
-
-let newCOW: string = cowsay.say(opts);
-console.log(newCOW);
+// creates client
 const client = new DiscordJS.Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
+// lets you know when the bot is ready
 client.on('ready', () => {
   console.log('The bot is ready');
 });
 
+//Create message, if message is cowsay give a reaction or a reply
+//and catch error if there is any.
 client.on('messageCreate', (message: any) => {
-  if (message.content === 'ping')
+  if (message.content === 'cowsay') {
+    message.react('🚔').then(console.log).catch(console.error);
+    const output = cowsay();
     message
-      .reply({
-        content: 'pong',
-      })
-      .then(() => console.log(`Replied to message "${message.content}"`))
-      .catch(console.error);
-
-  if (message.content === 'cowsay')
-    message
-      .reply(
-        `
-    \`\`\`
-      ${newCOW}
-    \`\`\`
-    `
-      )
+      .reply(output)
       .then(function (response: any) {
         console.log(`Replied to message "${message.content}"`);
       })
@@ -52,8 +29,7 @@ client.on('messageCreate', (message: any) => {
           message.reply('ERROR: image is too big');
         }
       });
-
-  // React to a message
-  message.react('🚔').then(console.log).catch(console.error);
+  }
 });
+// login bot
 client.login(process.env.TOKEN);
