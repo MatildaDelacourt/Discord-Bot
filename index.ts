@@ -4,9 +4,21 @@ const { Intents } = require('discord.js');
 const DiscordJS = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config();
+
 // Getting the prefix
 const PREFIX = String(process.env.PREFIX);
 console.log('prefix: ', PREFIX.length);
+
+// Adding the channel
+const CHANNELS = process.env.CHANNELS || null;
+
+if (!CHANNELS) {
+  console.error('CHANNELS is not defined');
+  process.exit(1);
+}
+
+const channels = CHANNELS.split(',');
+console.table(channels);
 
 // creates client
 const client = new DiscordJS.Client({
@@ -22,7 +34,7 @@ client.on('ready', () => {
 //and catch error if there is any.
 client.on('messageCreate', (message: any) => {
   console.log('testing: ', message.content);
-
+  if (!channels.includes(message.channel.id)) return;
   if (!message.content.startsWith(PREFIX)) return;
   // Checks the first 3 characters of the message.content
   console.log('no return: ', message.content);
