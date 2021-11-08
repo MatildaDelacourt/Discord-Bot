@@ -7,7 +7,7 @@ dotenv.config();
 
 // Getting the prefix
 const PREFIX = String(process.env.PREFIX);
-console.log('prefix: ', PREFIX.length);
+//console.log('prefix: ', PREFIX.length);
 
 // Adding the channel
 const CHANNELS = process.env.CHANNELS || null;
@@ -18,7 +18,7 @@ if (!CHANNELS) {
 }
 
 const channels = CHANNELS.split(',');
-console.table(channels);
+//console.table(channels);
 
 // creates client
 const client = new DiscordJS.Client({
@@ -33,25 +33,34 @@ client.on('ready', () => {
 //Create message, if message is cowsay give a reaction or a reply
 //and catch error if there is any.
 client.on('messageCreate', (message: any) => {
-  console.log('testing: ', message.content);
+  //console.log('testing: ', message.content);
   if (!channels.includes(message.channel.id)) return;
   if (!message.content.startsWith(PREFIX)) return;
   // Checks the first 3 characters of the message.content
-  console.log('no return: ', message.content);
+  //console.log('no return: ', message.content);
   const args = message.content
     .toLowerCase()
     .substring(PREFIX.length)
     .slice()
     .split(/ /)[2];
   // Valid commands
-  let validCommands = ['cat', 'atom'];
+  let validCommands = [
+    'cat',
+    'atom',
+    'maze-runner',
+    'snoopy',
+    'taxi',
+    'banana',
+  ];
   // Checking to see that the argument after md# cowsay matches the accepted faces and is valid.
   const isValid = validCommands.includes(args);
 
   console.log('isValid: ', isValid);
-
+  // Print out error if command is not valid.
   if (!isValid) {
-    message.reply('ERROR: valid commands are cat or atom ONLY');
+    message.reply(
+      'ERROR: valid commands are cat, atom, maze-runner, snoopy, taxi and banana ONLY'
+    );
     console.log(`You entered an unknown command.`);
     return;
   }
@@ -61,7 +70,13 @@ client.on('messageCreate', (message: any) => {
   const output = cowsay(String(args));
   // reply to message and catching error if there is any
   message
-    .reply(output)
+    .reply(
+      `
+    \`\`\`
+    ${output}
+    \`\`\`
+    `
+    )
     .then(function (response: any) {
       console.log(`Replied to message "${message.content}"`);
     })
