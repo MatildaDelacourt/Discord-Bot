@@ -33,8 +33,13 @@ client.on('ready', () => {
 //Create message, if message is cowsay give a reaction or a reply
 //and catch error if there is any.
 client.on('messageCreate', (message: any) => {
-  //console.log('testing: ', message.content);
-  if (!channels.includes(message.channel.id)) return;
+  if (!channels.includes(message.channel.id))
+    //console.log('testing: ', message.content);
+    return;
+  if (message.content === 'ping')
+    message.reply({
+      content: 'pong',
+    });
   if (!message.content.startsWith(PREFIX)) return;
   // Checks the first 3 characters of the message.content
   //console.log('no return: ', message.content);
