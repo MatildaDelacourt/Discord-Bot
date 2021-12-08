@@ -12,6 +12,6 @@ export default {
       sum *= parseInt(arg);
     }
 
-    message.reply(`The sum is ${sum}`);
+    message.reply(`The product is ${sum}`);
   },
 };
