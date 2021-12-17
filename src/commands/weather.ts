@@ -42,7 +42,7 @@ export default {
       .utc()
       .format('h:mm a');
 
-    const exampleEmbed = new MessageEmbed()
+    const weatherEmbed = new MessageEmbed()
       .setColor('YELLOW')
       .setTitle(`Current Weather In ${name}, ${country}`)
       .setAuthor('Matilda Delacourt')
@@ -65,6 +65,6 @@ export default {
       .setTimestamp()
       .setFooter('Weather from any part of the world');
 
-    message.reply({ embeds: [exampleEmbed] });
+    message.reply({ embeds: [weatherEmbed] });
   },
 };
